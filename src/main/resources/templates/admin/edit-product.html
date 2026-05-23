@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product - Giftify</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}">🎁 Giftify</a>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/auth/logout}">Logout</a>
+</nav>
+
+<div class="auth-container" style="max-width: 650px;">
+    <h2>Edit Product</h2>
+
+    <form th:action="@{/products/edit/{id}(id=${product.id})}"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input type="text" name="name"
+               th:value="${product.name}"
+               placeholder="Product Name" required/>
+
+        <input type="text" name="brand"
+               th:value="${product.brand}"
+               placeholder="Brand" required/>
+
+        <input type="number" name="price"
+               th:value="${product.price}"
+               placeholder="Price" step="0.01" required/>
+
+        <input type="number" name="stockQuantity"
+               th:value="${product.stockQuantity}"
+               placeholder="Stock Quantity"/>
+
+        <!-- Current image -->
+        <div th:if="${product.imageUrl != null}" style="margin: 10px 0;">
+            <p style="color:#c9a84c; font-size:13px;">Current Image:</p>
+            <img th:src="${product.imageUrl}"
+                 style="width:100px; height:100px; object-fit:cover;
+                            border-radius:8px; border:1px solid #c9a84c;"/>
+        </div>
+
+        <input type="file" name="imageFile" accept="image/*"
+               style="width:100%; padding:12px; margin:8px 0;
+                          border:1px solid #ddd; border-radius:6px; font-size:15px;"/>
+
+        <select name="mainCategory">
+            <option value="">Select Main Category</option>
+            <option value="PERFUME" th:selected="${product.mainCategory == 'PERFUME'}">Perfume</option>
+            <option value="GIFTSET" th:selected="${product.mainCategory == 'GIFTSET'}">Gift Set</option>
+            <option value="ACCESSORY" th:selected="${product.mainCategory == 'ACCESSORY'}">Accessory</option>
+            <option value="BODYLOTION" th:selected="${product.mainCategory == 'BODYLOTION'}">Body Lotion</option>
+            <option value="TESTER" th:selected="${product.mainCategory == 'TESTER'}">Tester</option>
+        </select>
+
+        <select name="mood">
+            <option value="">Select Mood</option>
+            <option value="DECENT" th:selected="${product.mood == 'DECENT'}">Decent</option>
+            <option value="LOVE" th:selected="${product.mood == 'LOVE'}">Love</option>
+            <option value="OBSESSION" th:selected="${product.mood == 'OBSESSION'}">Obsession</option>
+            <option value="BEAUTY" th:selected="${product.mood == 'BEAUTY'}">Beauty</option>
+        </select>
+
+        <select name="gender">
+            <option value="">Select Gender</option>
+            <option value="WOMEN" th:selected="${product.gender == 'WOMEN'}">Women</option>
+            <option value="MEN" th:selected="${product.gender == 'MEN'}">Men</option>
+            <option value="UNISEX" th:selected="${product.gender == 'UNISEX'}">Unisex</option>
+        </select>
+
+        <select name="season">
+            <option value="">Select Season</option>
+            <option value="All seasons" th:selected="${product.season == 'All seasons'}">All Seasons</option>
+            <option value="Spring/Summer" th:selected="${product.season == 'Spring/Summer'}">Spring / Summer</option>
+            <option value="Fall/Winter" th:selected="${product.season == 'Fall/Winter'}">Fall / Winter</option>
+            <option value="Summer" th:selected="${product.season == 'Summer'}">Summer</option>
+            <option value="Winter" th:selected="${product.season == 'Winter'}">Winter</option>
+        </select>
+
+        <select name="longevity">
+            <option value="">Select Longevity</option>
+            <option value="2-4 hours" th:selected="${product.longevity == '2-4 hours'}">2–4 hours</option>
+            <option value="4-6 hours" th:selected="${product.longevity == '4-6 hours'}">4–6 hours</option>
+            <option value="6-8 hours" th:selected="${product.longevity == '6-8 hours'}">6–8 hours</option>
+            <option value="8-10 hours" th:selected="${product.longevity == '8-10 hours'}">8–10 hours</option>
+            <option value="10+ hours" th:selected="${product.longevity == '10+ hours'}">10+ hours</option>
+        </select>
+
+        <input type="text" name="notes"
+               th:value="${product.notes}"
+               placeholder="Notes (e.g. Bergamot, Pepper, Ambroxan)"/>
+
+        <input type="text" name="bestFor"
+               th:value="${product.bestFor}"
+               placeholder="Best For (e.g. Office, Dates, Everyday)"/>
+
+        <input type="text" name="vibe"
+               th:value="${product.vibe}"
+               placeholder="Vibe (e.g. Clean, Confident, Modern)"/>
+
+        <textarea name="description"
+                  placeholder="Product Description"
+                  rows="4"
+                  style="width:100%; padding:12px; margin:8px 0;
+                             border:1px solid #ddd; border-radius:6px;
+                             font-size:15px;"
+                  th:text="${product.description}"></textarea>
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <p><a th:href="@{/products}">← Back to Products</a></p>
+</div>
+
+</body>
+</html>

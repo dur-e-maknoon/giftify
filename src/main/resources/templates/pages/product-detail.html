@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}"> Giftify</a>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/auth/logout}">Logout</a>
+</nav>
+
+<div class="container">
+    <div class="product-detail">
+
+        <img th:src="${product.imageUrl}"
+             alt="Product Image"
+             onerror="this.src='https://via.placeholder.com/350x400?text=No+Image'"/>
+
+        <div class="product-info">
+            <h1 th:text="${product.name}">Product Name</h1>
+            <h3 th:text="${product.brand}">Brand</h3>
+            <p class="price" th:text="'$' + ${product.price}">Price</p>
+
+            <hr/>
+
+            <div class="detail-row" th:if="${product.gender != null}">
+                <span class="label">👤 Gender</span>
+                <span th:text="${product.gender}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.mood != null}">
+                <span class="label">💫 Mood</span>
+                <span th:text="${product.mood}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.season != null}">
+                <span class="label">🌤 Season</span>
+                <span th:text="${product.season}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.longevity != null}">
+                <span class="label">⏱ Longevity</span>
+                <span th:text="${product.longevity}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.notes != null}">
+                <span class="label">🌿 Notes</span>
+                <span th:text="${product.notes}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.bestFor != null}">
+                <span class="label">✅ Best For</span>
+                <span th:text="${product.bestFor}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.vibe != null}">
+                <span class="label">✨ Vibe</span>
+                <span th:text="${product.vibe}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.stockQuantity != null}">
+                <span class="label">📦 In Stock</span>
+                <span th:text="${product.stockQuantity}"></span>
+            </div>
+
+            <hr/>
+
+            <p th:text="${product.description}">Description</p>
+
+            <a th:href="@{/products}" class="back-btn">← Back to Products</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

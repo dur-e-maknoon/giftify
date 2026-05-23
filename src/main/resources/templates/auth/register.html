@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Perfume Store</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}"> Giftify</a>
+    <a th:href="@{/products}">Products</a>
+</nav>
+
+<div class="auth-container">
+    <h2>Create Account</h2>
+
+    <!-- Error message -->
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form th:action="@{/auth/register}" method="post">
+
+        <input type="text"
+               name="fullName"
+               placeholder="Full Name"
+               required/>
+
+        <input type="email"
+               name="email"
+               placeholder="Email Address"
+               required/>
+
+        <input type="password"
+               name="password"
+               placeholder="Password"
+               required/>
+
+        <input type="text"
+               name="phone"
+               placeholder="Phone Number"/>
+
+        <input type="text"
+               name="address"
+               placeholder="Delivery Address"/>
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p>Already have an account?
+        <a th:href="@{/auth/login}">Login here</a>
+    </p>
+</div>
+
+</body>
+</html>

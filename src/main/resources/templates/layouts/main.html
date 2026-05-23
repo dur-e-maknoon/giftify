@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfume Store</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <a th:href="@{/}">🌸 Perfume Store</a>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/auth/login}">Login</a>
+    <a th:href="@{/auth/logout}">Logout</a>
+</nav>
+
+<!-- PAGE CONTENT GOES HERE -->
+<div class="container">
+    <th:block th:replace="${content}"/>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2024 Perfume Store. All rights reserved.</p>
+</footer>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

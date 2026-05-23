@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product - Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}"> Giftify</a>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/auth/logout}">Logout</a>
+</nav>
+
+<div class="auth-container" style="max-width: 650px;">
+    <h2>Add New Product</h2>
+
+    <form action="/products/add" method="post" enctype="multipart/form-data">
+
+
+        <input type="text" name="name"
+               placeholder="Product Name" required/>
+
+        <input type="text" name="brand"
+               placeholder="Brand (e.g. Chanel, Dior)" required/>
+
+        <input type="number" name="price"
+               placeholder="Price" step="0.01" required/>
+
+        <input type="number" name="stockQuantity"
+               placeholder="Stock Quantity"/>
+
+        <input type="file" name="imageFile" accept="image/*"
+               style="width:100%; padding:12px; margin:8px 0;
+                          border:1px solid #ddd; border-radius:6px; font-size:15px;"/>
+
+        <select name="mainCategory">
+            <option value="">Select Main Category</option>
+            <option value="PERFUME">Perfume</option>
+            <option value="GIFTSET">Gift Set</option>
+            <option value="ACCESSORY">Accessory</option>
+            <option value="BODYLOTION">Body Lotion</option>
+            <option value="TESTER">Tester</option>
+        </select>
+
+        <select name="mood">
+            <option value="">Select Mood</option>
+            <option value="DECENT">Decent</option>
+            <option value="LOVE">Love</option>
+            <option value="OBSESSION">Obsession</option>
+            <option value="BEAUTY">Beauty</option>
+        </select>
+
+        <select name="gender">
+            <option value="">Select Gender</option>
+            <option value="WOMEN">Women</option>
+            <option value="MEN">Men</option>
+            <option value="UNISEX">Unisex</option>
+        </select>
+
+        <select name="season">
+            <option value="">Select Season</option>
+            <option value="All seasons">All Seasons</option>
+            <option value="Spring/Summer">Spring / Summer</option>
+            <option value="Fall/Winter">Fall / Winter</option>
+            <option value="Summer">Summer</option>
+            <option value="Winter">Winter</option>
+        </select>
+
+        <select name="longevity">
+            <option value="">Select Longevity</option>
+            <option value="2-4 hours">2–4 hours</option>
+            <option value="4-6 hours">4–6 hours</option>
+            <option value="6-8 hours">6–8 hours</option>
+            <option value="8-10 hours">8–10 hours</option>
+            <option value="10+ hours">10+ hours</option>
+        </select>
+
+        <input type="text" name="notes"
+               placeholder="Notes (e.g. Bergamot, Pepper, Ambroxan)"/>
+
+        <input type="text" name="bestFor"
+               placeholder="Best For (e.g. Office, Dates, Everyday)"/>
+
+        <input type="text" name="vibe"
+               placeholder="Vibe (e.g. Clean, Confident, Modern)"/>
+
+        <textarea name="description"
+                  placeholder="Product Description" rows="4"
+                  style="width:100%; padding:12px; margin:8px 0;
+                             border:1px solid #ddd; border-radius:6px;
+                             font-size:15px;"></textarea>
+
+        <button type="submit">Add Product</button>
+    </form>
+
+    <p><a th:href="@{/products}">← Back to Products</a></p>
+</div>
+
+</body>
+</html>

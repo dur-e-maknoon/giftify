@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}"> Giftify</a>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/admin/dashboard}">Admin Panel</a>
+    <a th:href="@{/auth/logout}">Logout</a>
+</nav>
+
+<div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <div class="product-grid">
+
+        <!-- Card 1 -->
+        <div class="product-card">
+            <h3>Products</h3>
+            <p>Manage all perfume products</p>
+            <a th:href="@{/products}">View Products</a>
+            <br/><br/>
+            <a th:href="@{/products/add}">+ Add New Product</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="product-card">
+            <h3>Orders</h3>
+            <p>View and manage customer orders</p>
+            <a th:href="@{/admin/orders}">View Orders</a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="product-card">
+            <h3>Users</h3>
+            <p>Manage registered customers</p>
+            <a th:href="@{/admin/users}">View Users</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
