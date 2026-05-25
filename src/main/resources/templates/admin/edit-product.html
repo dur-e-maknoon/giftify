@@ -1,17 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Product - Giftify</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<head th:replace="~{fragments/layout :: head('Edit Product')}"></head>
 <body>
 
-<nav>
-    <a th:href="@{/}">🎁 Giftify</a>
-    <a th:href="@{/products}">Products</a>
-    <a th:href="@{/auth/logout}">Logout</a>
-</nav>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
 
 <div class="auth-container" style="max-width: 650px;">
     <h2>Edit Product</h2>
@@ -20,33 +12,19 @@
           method="post"
           enctype="multipart/form-data">
 
-        <input type="text" name="name"
-               th:value="${product.name}"
-               placeholder="Product Name" required/>
+        <input type="text" name="name" th:value="${product.name}" placeholder="Product Name" required/>
+        <input type="text" name="brand" th:value="${product.brand}" placeholder="Brand" required/>
+        <input type="number" name="price" th:value="${product.price}" placeholder="Price" step="0.01" required/>
+        <input type="number" name="stockQuantity" th:value="${product.stockQuantity}" placeholder="Stock Quantity"/>
 
-        <input type="text" name="brand"
-               th:value="${product.brand}"
-               placeholder="Brand" required/>
-
-        <input type="number" name="price"
-               th:value="${product.price}"
-               placeholder="Price" step="0.01" required/>
-
-        <input type="number" name="stockQuantity"
-               th:value="${product.stockQuantity}"
-               placeholder="Stock Quantity"/>
-
-        <!-- Current image -->
-        <div th:if="${product.imageUrl != null}" style="margin: 10px 0;">
-            <p style="color:#c9a84c; font-size:13px;">Current Image:</p>
+        <div th:if="${product.imageUrl != null}" style="margin: 0.5rem 0 1rem;">
+            <p style="color:var(--text-muted); font-size:0.8rem; margin-bottom:0.5rem;">Current image</p>
             <img th:src="${product.imageUrl}"
-                 style="width:100px; height:100px; object-fit:cover;
-                            border-radius:8px; border:1px solid #c9a84c;"/>
+                 alt="Current product"
+                 style="width:100px; height:100px; object-fit:cover; border-radius:6px; border:1px solid var(--border);"/>
         </div>
 
-        <input type="file" name="imageFile" accept="image/*"
-               style="width:100%; padding:12px; margin:8px 0;
-                          border:1px solid #ddd; border-radius:6px; font-size:15px;"/>
+        <input type="file" name="imageFile" accept="image/*"/>
 
         <select name="mainCategory">
             <option value="">Select Main Category</option>
@@ -90,31 +68,18 @@
             <option value="10+ hours" th:selected="${product.longevity == '10+ hours'}">10+ hours</option>
         </select>
 
-        <input type="text" name="notes"
-               th:value="${product.notes}"
-               placeholder="Notes (e.g. Bergamot, Pepper, Ambroxan)"/>
+        <input type="text" name="notes" th:value="${product.notes}" placeholder="Notes"/>
+        <input type="text" name="bestFor" th:value="${product.bestFor}" placeholder="Best For"/>
+        <input type="text" name="vibe" th:value="${product.vibe}" placeholder="Vibe"/>
+        <textarea name="description" placeholder="Product Description" rows="4" th:text="${product.description}"></textarea>
 
-        <input type="text" name="bestFor"
-               th:value="${product.bestFor}"
-               placeholder="Best For (e.g. Office, Dates, Everyday)"/>
-
-        <input type="text" name="vibe"
-               th:value="${product.vibe}"
-               placeholder="Vibe (e.g. Clean, Confident, Modern)"/>
-
-        <textarea name="description"
-                  placeholder="Product Description"
-                  rows="4"
-                  style="width:100%; padding:12px; margin:8px 0;
-                             border:1px solid #ddd; border-radius:6px;
-                             font-size:15px;"
-                  th:text="${product.description}"></textarea>
-
-        <button type="submit">Save Changes</button>
+        <button type="submit" class="btn-primary">Save Changes</button>
     </form>
 
-    <p><a th:href="@{/products}">← Back to Products</a></p>
+    <p><a th:href="@{/products}">Back to Products</a></p>
 </div>
 
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

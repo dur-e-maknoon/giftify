@@ -1,39 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Product - Admin</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<head th:replace="~{fragments/layout :: head('Add Product')}"></head>
 <body>
 
-<nav>
-    <a th:href="@{/}"> Giftify</a>
-    <a th:href="@{/products}">Products</a>
-    <a th:href="@{/auth/logout}">Logout</a>
-</nav>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
 
 <div class="auth-container" style="max-width: 650px;">
     <h2>Add New Product</h2>
 
-    <form action="/products/add" method="post" enctype="multipart/form-data">
-
-
-        <input type="text" name="name"
-               placeholder="Product Name" required/>
-
-        <input type="text" name="brand"
-               placeholder="Brand (e.g. Chanel, Dior)" required/>
-
-        <input type="number" name="price"
-               placeholder="Price" step="0.01" required/>
-
-        <input type="number" name="stockQuantity"
-               placeholder="Stock Quantity"/>
-
-        <input type="file" name="imageFile" accept="image/*"
-               style="width:100%; padding:12px; margin:8px 0;
-                          border:1px solid #ddd; border-radius:6px; font-size:15px;"/>
+    <form th:action="@{/products/add}" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Product Name" required/>
+        <input type="text" name="brand" placeholder="Brand (e.g. Chanel, Dior)" required/>
+        <input type="number" name="price" placeholder="Price" step="0.01" required/>
+        <input type="number" name="stockQuantity" placeholder="Stock Quantity"/>
+        <input type="file" name="imageFile" accept="image/*"/>
 
         <select name="mainCategory">
             <option value="">Select Main Category</option>
@@ -77,26 +57,18 @@
             <option value="10+ hours">10+ hours</option>
         </select>
 
-        <input type="text" name="notes"
-               placeholder="Notes (e.g. Bergamot, Pepper, Ambroxan)"/>
+        <input type="text" name="notes" placeholder="Notes (e.g. Bergamot, Pepper, Ambroxan)"/>
+        <input type="text" name="bestFor" placeholder="Best For (e.g. Office, Dates, Everyday)"/>
+        <input type="text" name="vibe" placeholder="Vibe (e.g. Clean, Confident, Modern)"/>
+        <textarea name="description" placeholder="Product Description" rows="4"></textarea>
 
-        <input type="text" name="bestFor"
-               placeholder="Best For (e.g. Office, Dates, Everyday)"/>
-
-        <input type="text" name="vibe"
-               placeholder="Vibe (e.g. Clean, Confident, Modern)"/>
-
-        <textarea name="description"
-                  placeholder="Product Description" rows="4"
-                  style="width:100%; padding:12px; margin:8px 0;
-                             border:1px solid #ddd; border-radius:6px;
-                             font-size:15px;"></textarea>
-
-        <button type="submit">Add Product</button>
+        <button type="submit" class="btn-primary">Add Product</button>
     </form>
 
-    <p><a th:href="@{/products}">← Back to Products</a></p>
+    <p><a th:href="@{/products}">Back to Products</a></p>
 </div>
 
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

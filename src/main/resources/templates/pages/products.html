@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Giftify</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<head th:replace="~{fragments/layout :: head(${title != null ? title : 'Shop'})}"></head>
 <body>
 
-<nav>
-    <a th:href="@{/}">Giftify</a>
-    <a th:href="@{/products}">All</a>
-    <a th:href="@{/products/category/WOMEN}">Women</a>
-    <a th:href="@{/products/category/MEN}">Men</a>
-    <a th:href="@{/products/type/PERFUME}">Perfumes</a>
-    <a th:href="@{/products/type/GIFTSET}">Gift Sets</a>
-    <a th:href="@{/products/type/ACCESSORY}">Accessories</a>
-    <a th:href="@{/products/type/BODYLOTION}">Body Lotions</a>
-    <a th:href="@{/products/mood/DECENT}">Decent</a>
-    <a th:href="@{/products/mood/LOVE}">Love</a>
-    <a th:href="@{/products/mood/OBSESSION}">Obsession</a>
-    <a th:href="@{/products/mood/BEAUTY}">Beauty</a>
-    <a th:href="@{/products/add}" sec:authorize="hasRole('ADMIN')">+ Add</a>
-    <a th:href="@{/auth/logout}">Logout</a>
-</nav>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
 
 <div class="container">
-    <h1 th:text="${title != null ? title : 'All Perfumes'}">Our Perfumes</h1>
+    <header class="page-header">
+        <h1 th:text="${title != null ? title : 'All Products'}">All Products</h1>
+        <p>Explore our full collection at Giftify Store</p>
+    </header>
 
-    <div class="product-grid">
-        <div class="product-card" th:each="product : ${products}">
-            <img th:src="${product.imageUrl}"
-                 alt="Product Image"
-                 onerror="this.src='https://via.placeholder.com/200x200?text=No+Image'"/>
-
-            <p th:text="${product.gender}">Gender</p>
-            <h3 th:text="${product.name}">Product Name</h3>
-            <p th:text="${product.brand}">Brand</p>
-
-            <span class="mood-badge" th:text="${product.mood}">Mood</span>
-
-            <p th:text="'$' + ${product.price}">Price</p>
-            <div class="card-buttons">
-                <a th:href="@{/products/{id}(id=${product.id})}">View</a>
-                <a th:href="@{/products/edit/{id}(id=${product.id})}"
-                   sec:authorize="hasRole('ADMIN')"
-                   class="edit-btn">Edit</a>
-                <a th:href="@{/products/delete/{id}(id=${product.id})}"
-                   onclick="return confirm('Delete this product?')"
-                   class="delete-btn"
-                   sec:authorize="hasRole('ADMIN')">Delete</a>
+    <div class="product-grid" th:if="${!products.isEmpty()}">
+        <article class="product-card" th:each="product : ${products}">
+            <a th:href="@{/products/{id}(id=${product.id})}" class="product-card-media product-card-media--light">
+                <img th:src="${product.imageUrl}"
+                     th:alt="${product.name}"
+                     class="product-img-crisp"
+                     onerror="this.src='https://via.placeholder.com/400x400?text=Giftify'"/>
+            </a>
+            <div class="product-card-body">
+                <p class="product-card-meta" th:text="${product.gender}">Category</p>
+                <h3 th:text="${product.name}">Product Name</h3>
+                <p class="brand" th:text="${product.brand}">Brand</p>
+                <span class="mood-badge" th:if="${product.mood != null}" th:text="${product.mood}">Mood</span>
+                <p class="price" th:text="'$' + ${product.price}">Price</p>
+                <div class="card-buttons">
+                    <a th:href="@{/products/{id}(id=${product.id})}">View</a>
+                    <a th:href="@{/cart/add/{id}(id=${product.id})}"
+                       class="cart-btn"
+                       sec:authorize="isAuthenticated()">Add to Cart</a>
+                    <a th:href="@{/auth/login}"
+                       class="cart-btn"
+                       sec:authorize="!isAuthenticated()">Sign In to Buy</a>
+                    <a th:href="@{/products/edit/{id}(id=${product.id})}"
+                       class="edit-btn"
+                       sec:authorize="hasRole('ADMIN')">Edit</a>
+                    <a th:href="@{/products/delete/{id}(id=${product.id})}"
+                       onclick="return confirm('Delete this product?')"
+                       class="delete-btn"
+                       sec:authorize="hasRole('ADMIN')">Delete</a>
+                </div>
             </div>
-        </div>
+        </article>
+    </div>
+
+    <div class="empty-state" th:if="${products.isEmpty()}">
+        <p>No products found in this category.</p>
+        <a th:href="@{/products}" class="btn-primary">Browse All Products</a>
     </div>
 </div>
 
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

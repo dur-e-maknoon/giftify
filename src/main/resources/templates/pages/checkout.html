@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Checkout')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <header class="page-header">
+        <h1>Checkout</h1>
+        <p>Complete your order at Giftify Store</p>
+    </header>
+
+    <p class="checkout-error" th:if="${checkoutError == 'card'}">
+        Please enter your card or account number to pay by debit/credit card.
+    </p>
+    <p class="checkout-error" th:if="${checkoutError == 'online'}">
+        Please select a wallet app and enter your account or mobile number for online payment.
+    </p>
+
+    <div class="checkout-grid">
+        <div class="checkout-summary">
+            <h2>Order Summary</h2>
+            <div class="cart-item" th:each="item : ${cart.items}">
+                <img th:src="${item.product.imageUrl}"
+                     th:alt="${item.product.name}"
+                     onerror="this.src='https://via.placeholder.com/80x80?text=Giftify'"/>
+                <div class="cart-item-info">
+                    <h3 th:text="${item.product.name}">Name</h3>
+                    <p th:text="'$' + ${item.product.price} + ' x ' + ${item.quantity}">Price</p>
+                </div>
+                <div class="cart-item-total">
+                    <p th:text="'$' + ${item.totalPrice}">Total</p>
+                </div>
+            </div>
+            <div class="cart-total">
+                <h2 th:text="'Total: $' + ${total}">Total</h2>
+            </div>
+        </div>
+
+        <div class="checkout-form">
+            <h2>Delivery Details</h2>
+            <form id="checkoutForm" th:action="@{/orders/place}" method="post">
+                <textarea name="shippingAddress"
+                          placeholder="Enter your full delivery address"
+                          rows="4"
+                          required></textarea>
+
+                <h3>Payment Method</h3>
+                <div class="payment-options">
+                    <label class="payment-option">
+                        <input type="radio" name="paymentMethod" value="CASH" checked
+                               data-payment-option="cash"/>
+                        Cash on Delivery
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="paymentMethod" value="CARD"
+                               data-payment-option="card"/>
+                        Credit / Debit Card
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="paymentMethod" value="ONLINE"
+                               data-payment-option="online"/>
+                        Online Payment
+                    </label>
+                </div>
+
+                <div id="cardPaymentDetails" class="payment-details-panel is-hidden">
+                    <h4>Card Details</h4>
+                    <label class="field-label" for="cardAccountNumber">Card / Account Number</label>
+                    <input type="text"
+                           id="cardAccountNumber"
+                           name="cardAccountNumber"
+                           placeholder="Enter your 16-digit card or bank account number"
+                           inputmode="numeric"
+                           autocomplete="off"
+                           maxlength="24"/>
+                    <p class="field-hint">Enter the account number linked to your debit or credit card.</p>
+                </div>
+
+                <div id="onlinePaymentDetails" class="payment-details-panel is-hidden">
+                    <h4>Online Wallet</h4>
+                    <label class="field-label" for="onlineProvider">Wallet App</label>
+                    <select id="onlineProvider" name="onlineProvider">
+                        <option value="">Select payment app</option>
+                        <option value="EASYPAISA">EasyPaisa</option>
+                        <option value="JAZZCASH">JazzCash</option>
+                        <option value="SADAPAY">SadaPay</option>
+                        <option value="NAYAPAY">NayaPay</option>
+                    </select>
+
+                    <label class="field-label" for="walletAccountNumber">Account / Mobile Number</label>
+                    <input type="text"
+                           id="walletAccountNumber"
+                           name="walletAccountNumber"
+                           placeholder="03XX XXXXXXX or wallet account ID"
+                           inputmode="numeric"
+                           autocomplete="off"
+                           maxlength="20"/>
+                    <p class="field-hint">Use the mobile number or account ID registered with your wallet app.</p>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width:100%; margin-top:1.25rem;">
+                    Place Order
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

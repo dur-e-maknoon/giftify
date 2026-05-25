@@ -38,6 +38,7 @@ public class Product {
     private String season;        // "All seasons"
     private String vibe;          // "Clean, confident, modern"
 
+    @Column(name = "image_url")
     private String imageUrl;
 
     private Integer stockQuantity;
@@ -93,8 +94,10 @@ public class Product {
     public String getMainCategory() { return mainCategory; }
     public void setMainCategory(String mainCategory) { this.mainCategory = mainCategory; }
 
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
     public Integer getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('My Orders')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <header class="page-header">
+        <h1>My Orders</h1>
+        <p>Track your purchases from Giftify Store</p>
+    </header>
+
+    <div class="empty-state" th:if="${orders.empty}">
+        <p>You have not placed any orders yet.</p>
+        <a th:href="@{/products}" class="btn-primary">Start Shopping</a>
+    </div>
+
+    <div th:each="order : ${orders}" class="order-card">
+        <div class="order-header">
+            <span>Order <span th:text="'#' + ${order.id}"></span></span>
+            <span class="order-status" th:text="${order.status}">PENDING</span>
+        </div>
+        <div class="order-body">
+            <p>Total: <strong style="color:var(--accent);" th:text="'$' + ${order.totalAmount}">$0</strong></p>
+            <p>Address: <span th:text="${order.shippingAddress}">Address</span></p>
+            <p>Date: <span th:text="${order.createdAt}">Date</span></p>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

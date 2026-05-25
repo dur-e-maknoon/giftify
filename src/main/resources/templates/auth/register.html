@@ -1,55 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Register - Perfume Store</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<head th:replace="~{fragments/layout :: head('Register')}"></head>
 <body>
 
-<nav>
-    <a th:href="@{/}"> Giftify</a>
-    <a th:href="@{/products}">Products</a>
-</nav>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
 
 <div class="auth-container">
     <h2>Create Account</h2>
+    <p style="text-align:center; color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">
+        Join Giftify Store to shop and track orders
+    </p>
 
-    <!-- Error message -->
     <p class="error" th:if="${error}" th:text="${error}"></p>
 
     <form th:action="@{/auth/register}" method="post">
-
-        <input type="text"
-               name="fullName"
-               placeholder="Full Name"
-               required/>
-
-        <input type="email"
-               name="email"
-               placeholder="Email Address"
-               required/>
-
-        <input type="password"
-               name="password"
-               placeholder="Password"
-               required/>
-
-        <input type="text"
-               name="phone"
-               placeholder="Phone Number"/>
-
-        <input type="text"
-               name="address"
-               placeholder="Delivery Address"/>
-
-        <button type="submit">Create Account</button>
+        <input type="text" name="fullName" placeholder="Full Name" required/>
+        <input type="email" name="email" placeholder="Email Address" required/>
+        <input type="password" name="password" placeholder="Password" required/>
+        <input type="text" name="phone" placeholder="Phone Number"/>
+        <input type="text" name="address" placeholder="Delivery Address"/>
+        <button type="submit" class="btn-primary">Create Account</button>
     </form>
 
     <p>Already have an account?
-        <a th:href="@{/auth/login}">Login here</a>
+        <a th:href="@{/auth/login}">Sign in</a>
     </p>
 </div>
 
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>

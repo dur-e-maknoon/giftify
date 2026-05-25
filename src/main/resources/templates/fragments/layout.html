@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Giftify Store — curated luxury gifts, perfumes, and gift sets.">
+    <title th:text="${title} + ' | Giftify Store'">Giftify Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<nav th:fragment="navbar" class="site-nav">
+    <div class="nav-inner">
+        <a th:href="@{/}" class="nav-brand">
+            <span class="brand-mark">G</span>
+            <span class="brand-text">Giftify <em>Store</em></span>
+        </a>
+
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a th:href="@{/products}">Shop All</a>
+            <a th:href="@{/#womens-perfumes}">Women's Perfumes</a>
+            <a th:href="@{/products/category/WOMEN}">Shop Women</a>
+            <a th:href="@{/products/category/MEN}">Men</a>
+            <a th:href="@{/products/type/PERFUME}">Perfumes</a>
+            <a th:href="@{/products/type/GIFTSET}">Gift Sets</a>
+            <a th:href="@{/products/type/ACCESSORY}">Accessories</a>
+
+            <span class="nav-divider"></span>
+
+            <a th:href="@{/cart}" sec:authorize="isAuthenticated()">Cart</a>
+            <a th:href="@{/orders/my-orders}" sec:authorize="isAuthenticated()">My Orders</a>
+            <a th:href="@{/products/add}" sec:authorize="hasRole('ADMIN')">Admin</a>
+
+            <a th:href="@{/auth/login}" sec:authorize="!isAuthenticated()">Sign In</a>
+            <a th:href="@{/auth/register}" class="nav-cta" sec:authorize="!isAuthenticated()">Register</a>
+            <a th:href="@{/auth/logout}" sec:authorize="isAuthenticated()">Sign Out</a>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer" class="site-footer">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <p class="footer-logo">Giftify Store</p>
+            <p class="footer-tagline">Curated luxury gifts for every occasion.</p>
+        </div>
+        <div class="footer-links">
+            <p class="footer-heading">Shop</p>
+            <a th:href="@{/products}">All Products</a>
+            <a th:href="@{/products/type/GIFTSET}">Gift Sets</a>
+            <a th:href="@{/#womens-perfumes}">Women's Perfumes</a>
+            <a th:href="@{/products/category/MEN}">Men</a>
+        </div>
+        <div class="footer-company">
+            <p class="footer-heading">Company</p>
+            <p>A product of <strong>Alpha Solutions Services LLC</strong></p>
+            <a href="https://alphasolutions.software" target="_blank" rel="noopener noreferrer">alphasolutions.software</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; <span th:text="${T(java.time.Year).now()}">2026</span> Giftify Store. All rights reserved.</p>
+        <p class="footer-credit">Designed and developed by Dur E Maknoon at Alpha Solutions Services LLC</p>
+    </div>
+</footer>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Order Confirmed')}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div class="container">
+    <div class="confirmation-box">
+        <div class="confirmation-icon" aria-hidden="true">OK</div>
+        <h1>Order Placed Successfully</h1>
+        <p class="confirmation-detail">Thank you for shopping with Giftify Store.</p>
+        <p class="confirmation-detail">
+            Order ID: <span class="highlight" th:text="'#' + ${order.id}">#0</span>
+        </p>
+        <p class="confirmation-detail">
+            Total: <span class="highlight" th:text="'$' + ${order.totalAmount}">$0</span>
+        </p>
+        <p class="confirmation-detail">
+            Status: <span class="highlight" th:text="${order.status}">PENDING</span>
+        </p>
+        <p class="confirmation-detail">
+            Shipping to: <span th:text="${order.shippingAddress}">Address</span>
+        </p>
+
+        <div th:if="${payment != null}" class="payment-summary">
+            <p class="confirmation-detail">
+                Payment: <span class="highlight" th:text="${payment.displayLabel}">Method</span>
+            </p>
+            <p class="confirmation-detail" th:if="${payment.accountNumber != null}">
+                Account: <span class="highlight" th:text="${payment.maskedAccountNumber}">****</span>
+            </p>
+        </div>
+
+        <div class="confirmation-actions">
+            <a th:href="@{/products}" class="btn-primary">Continue Shopping</a>
+            <a th:href="@{/orders/my-orders}" class="btn-secondary">My Orders</a>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

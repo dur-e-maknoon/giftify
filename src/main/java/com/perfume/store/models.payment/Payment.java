@@ -29,6 +29,12 @@ public class Payment {
 
     private String transactionId;
 
+    /** EasyPaisa, JazzCash, etc. — used when paymentMethod is ONLINE */
+    private String onlineProvider;
+
+    /** Card or mobile-wallet account number */
+    private String accountNumber;
+
     @CreationTimestamp
     private LocalDateTime paidAt;
 
@@ -63,5 +69,42 @@ public class Payment {
     public String getTransactionId() { return transactionId; }
     public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
 
+    public String getOnlineProvider() { return onlineProvider; }
+    public void setOnlineProvider(String onlineProvider) { this.onlineProvider = onlineProvider; }
+
+    public String getAccountNumber() { return accountNumber; }
+    public void setAccountNumber(String accountNumber) { this.accountNumber = accountNumber; }
+
     public LocalDateTime getPaidAt() { return paidAt; }
+
+    public String getDisplayLabel() {
+        if ("CASH".equals(paymentMethod)) {
+            return "Cash on Delivery";
+        }
+        if ("CARD".equals(paymentMethod)) {
+            return "Credit / Debit Card";
+        }
+        if ("ONLINE".equals(paymentMethod) && onlineProvider != null) {
+            return formatProvider(onlineProvider);
+        }
+        return paymentMethod;
+    }
+
+    private static String formatProvider(String provider) {
+        return switch (provider) {
+            case "EASYPAISA" -> "EasyPaisa";
+            case "JAZZCASH" -> "JazzCash";
+            case "SADAPAY" -> "SadaPay";
+            case "NAYAPAY" -> "NayaPay";
+            default -> provider;
+        };
+    }
+
+    public String getMaskedAccountNumber() {
+        if (accountNumber == null || accountNumber.length() < 4) {
+            return accountNumber;
+        }
+        int len = accountNumber.length();
+        return "****" + accountNumber.substring(len - 4);
+    }
 }

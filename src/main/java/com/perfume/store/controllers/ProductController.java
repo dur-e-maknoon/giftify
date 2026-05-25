@@ -24,7 +24,7 @@ public class ProductController {
     @GetMapping
     public String getAllProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("title", "All Perfumes");
+        model.addAttribute("title", "All Products");
         return "pages/products";
     }
 
@@ -102,7 +102,10 @@ public class ProductController {
     @GetMapping("/category/{gender}")
     public String getByGender(@PathVariable String gender, Model model) {
         model.addAttribute("products", productService.getProductsByGender(gender));
-        model.addAttribute("title", gender.charAt(0) + gender.substring(1).toLowerCase() + " Perfumes");
+        String label = gender.charAt(0) + gender.substring(1).toLowerCase();
+        model.addAttribute("title", "WOMEN".equalsIgnoreCase(gender)
+                ? "Women's Perfumes"
+                : label + " Collection");
         return "pages/products";
     }
 
@@ -116,7 +119,12 @@ public class ProductController {
     @GetMapping("/type/{mainCategory}")
     public String getByMainCategory(@PathVariable String mainCategory, Model model) {
         model.addAttribute("products", productService.getProductsByMainCategory(mainCategory));
-        model.addAttribute("title", mainCategory.charAt(0) + mainCategory.substring(1).toLowerCase() + " Collection");
+        String title = switch (mainCategory.toUpperCase()) {
+            case "GIFTSET" -> "Luxury Gift Sets";
+            case "PERFUME" -> "Perfumes";
+            default -> mainCategory.charAt(0) + mainCategory.substring(1).toLowerCase() + " Collection";
+        };
+        model.addAttribute("title", title);
         return "pages/products";
     }
 }
