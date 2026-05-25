@@ -20,6 +20,24 @@
 
 <!-- HERO SECTION -->
 <div class="hero">
+    <!-- Sliding backgrounds -->
+    <div class="hero-slider">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+
+    <!-- Floating perfume bottles -->
+    <div class="hero-bottles">
+        <div class="bottle"></div>
+        <div class="bottle"></div>
+        <div class="bottle"></div>
+        <div class="bottle"></div>
+        <div class="bottle"></div>
+        <div class="bottle"></div>
+    </div>
+
     <div class="hero-content">
         <p class="hero-subtitle">LUXURY PERFUME STORE</p>
         <h1 class="hero-title">Discover Your<br/>Signature Scent</h1>
@@ -30,6 +48,15 @@
             <a th:href="@{/products/type/GIFTSET}" class="btn-secondary">Gift Sets</a>
         </div>
     </div>
+</div>
+<!-- SEARCH BAR -->
+<div class="search-bar" style="margin-top: 30px;">
+    <form th:action="@{/products/search}" method="get">
+        <input type="text"
+               name="keyword"
+               placeholder="Search perfumes, brands..."/>
+        <button type="submit">🔍 Search</button>
+    </form>
 </div>
 
 <!-- CATEGORIES SECTION -->

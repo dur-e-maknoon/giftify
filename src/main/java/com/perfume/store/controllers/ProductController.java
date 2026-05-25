@@ -127,4 +127,11 @@ public class ProductController {
         model.addAttribute("title", title);
         return "pages/products";
     }
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam String keyword, Model model) {
+        model.addAttribute("products", productService.searchProducts(keyword));
+        model.addAttribute("title", "Search results for: " + keyword);
+        model.addAttribute("keyword", keyword);
+        return "pages/products";
+    }
 }
