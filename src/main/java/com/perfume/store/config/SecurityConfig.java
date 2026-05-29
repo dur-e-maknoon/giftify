@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/products/edit/**").hasRole("ADMIN")
                         .requestMatchers("/cart/**").authenticated()
                         .requestMatchers("/reviews/**").authenticated()
+                        .requestMatchers("/wishlist/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

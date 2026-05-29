@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Wishlist - Giftify</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}"> Giftify</a>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/cart}"> Cart</a>
+    <a th:href="@{/wishlist}"> Wishlist</a>
+    <a th:href="@{/auth/logout}">Logout</a>
+</nav>
+
+<div class="container">
+    <h1>My Wishlist </h1>
+
+    <div th:if="${wishlist.products.empty}"
+         class="empty-cart">
+        <p>Your wishlist is empty!</p>
+        <a th:href="@{/products}" class="btn-primary">
+            Discover Perfumes
+        </a>
+    </div>
+
+    <div class="product-grid" th:if="${!wishlist.products.empty}">
+        <div class="product-card"
+             th:each="product : ${wishlist.products}">
+            <img th:src="${product.imageUrl}"
+                 alt="Product"
+                 onerror="this.src='https://via.placeholder.com/200x200?text=No+Image'"/>
+            <p th:text="${product.gender}">Gender</p>
+            <h3 th:text="${product.name}">Name</h3>
+            <p th:text="${product.brand}">Brand</p>
+            <span class="mood-badge"
+                  th:text="${product.mood}">Mood</span>
+            <p th:text="'$' + ${product.price}">Price</p>
+            <div class="card-buttons">
+                <a th:href="@{/products/{id}(id=${product.id})}">View</a>
+                <a th:href="@{/cart/add/{id}(id=${product.id})}"
+                   class="cart-btn">Add to Cart</a>
+                <a th:href="@{/wishlist/remove/{id}(id=${product.id})}"
+                   class="delete-btn">Remove</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2024 Giftify. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

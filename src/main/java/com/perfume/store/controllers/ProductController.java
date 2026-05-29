@@ -5,6 +5,7 @@ import com.perfume.store.models.User;
 import com.perfume.store.repositories.UserRepository;
 import com.perfume.store.services.ProductService;
 import com.perfume.store.services.ReviewService;
+import com.perfume.store.services.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,9 @@ public class ProductController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private WishlistService wishlistService;
 
     @Autowired
     private UserRepository userRepository;
@@ -48,8 +52,11 @@ public class ProductController {
             User user = userRepository.findByEmail(auth.getName());
             model.addAttribute("hasReviewed",
                     reviewService.hasUserReviewed(id, user.getId()));
+            model.addAttribute("inWishlist",
+                    wishlistService.isInWishlist(auth.getName(), id));
         } else {
             model.addAttribute("hasReviewed", false);
+            model.addAttribute("inWishlist", false);
         }
         return "pages/product-detail";
     }

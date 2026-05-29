@@ -1,7 +1,111 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{fragments/layout :: head(${product.name})}"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail - Giftify</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}">Giftify</a>
+    <a th:href="@{/products}">Products</a>
+    <a th:href="@{/cart}">Cart</a>
+    <a th:href="@{/wishlist}"> Wishlist</a>
+    <a th:href="@{/auth/logout}">Logout</a>
+</nav>
+
+<div class="container">
+    <div class="product-detail">
+
+        <img th:src="${product.imageUrl}"
+             alt="Product Image"
+             onerror="this.src='https://via.placeholder.com/350x400?text=No+Image'"/>
+
+        <div class="product-info">
+            <h1 th:text="${product.name}">Product Name</h1>
+            <h3 th:text="${product.brand}">Brand</h3>
+            <p class="price" th:text="'$' + ${product.price}">Price</p>
+
+            <hr/>
+
+            <div class="detail-row" th:if="${product.gender != null}">
+                <span class="label">Gender</span>
+                <span th:text="${product.gender}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.mood != null}">
+                <span class="label"> Mood</span>
+                <span th:text="${product.mood}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.season != null}">
+                <span class="label"> Season</span>
+                <span th:text="${product.season}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.longevity != null}">
+                <span class="label">Longevity</span>
+                <span th:text="${product.longevity}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.notes != null}">
+                <span class="label"> Notes</span>
+                <span th:text="${product.notes}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.bestFor != null}">
+                <span class="label"> Best For</span>
+                <span th:text="${product.bestFor}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.vibe != null}">
+                <span class="label"> Vibe</span>
+                <span th:text="${product.vibe}"></span>
+            </div>
+
+            <div class="detail-row" th:if="${product.stockQuantity != null}">
+                <span class="label"> In Stock</span>
+                <span th:text="${product.stockQuantity}"></span>
+            </div>
+
+            <hr/>
+
+            <p th:text="${product.description}">Description</p>
+
+            <!-- Action Buttons -->
+            <div style="display:flex; gap:15px; flex-wrap:wrap; margin-top:20px;">
+
+                <a th:href="@{/cart/add/{id}(id=${product.id})}"
+                   class="btn-primary"
+                   style="border:none; cursor:pointer;">
+                    🛒 Add to Cart
+                </a>
+
+                <a th:if="${!inWishlist}"
+                   th:href="@{/wishlist/add/{id}(id=${product.id})}"
+                   class="btn-secondary">
+                     Add to Wishlist
+                </a>
+
+                <a th:if="${inWishlist}"
+                   th:href="@{/wishlist/remove/{id}(id=${product.id})}"
+                   class="btn-secondary"
+                   style="border-color:#cc3333; color:#cc3333;">
+                     Remove from Wishlist
+                </a>
+
+            </div>
+
+            <a th:href="@{/products}" class="back-btn"
+               style="margin-top:15px; display:inline-block;">
+                ← Back to Products
+            </a>
+
+        </div>
+    </div>
+</div>
 
 <!-- REVIEWS SECTION -->
 <div class="container" style="margin-top: 0;">
@@ -26,7 +130,7 @@
                 </div>
                 <span class="review-count"
                       th:text="'(' + ${reviews.size()} + ' reviews)'">
-                </span>
+                    </span>
             </div>
         </div>
 
@@ -54,9 +158,9 @@
                           placeholder="Share your experience with this perfume..."
                           rows="3"
                           style="width:100%; padding:12px; margin:10px 0;
-                                 background:#0a0a0a; border:1px solid #c9a84c44;
-                                 border-radius:8px; color:#f0e6d3; font-size:14px;
-                                 font-family:'Raleway',sans-serif;"></textarea>
+                                     background:#0a0a0a; border:1px solid #c9a84c44;
+                                     border-radius:8px; color:#f0e6d3; font-size:14px;
+                                     font-family:'Raleway',sans-serif;"></textarea>
                 <button type="submit" class="btn-primary"
                         style="border:none; cursor:pointer; padding:12px 30px;">
                     Submit Review
@@ -70,18 +174,19 @@
 
         <!-- Review List -->
         <div class="review-list">
-            <div th:if="${reviews.empty}" style="color:#a89060; padding:20px 0;">
+            <div th:if="${reviews.empty}"
+                 style="color:#a89060; padding:20px 0;">
                 No reviews yet. Be the first to review!
             </div>
             <div class="review-card" th:each="review : ${reviews}">
                 <div class="review-header">
-                    <span class="reviewer-name"
-                          th:text="${review.user.fullName}">Name</span>
+                        <span class="reviewer-name"
+                              th:text="${review.user.fullName}">Name</span>
                     <span class="review-stars"
                           th:text="${review.stars}">★★★★★</span>
                     <span class="review-date"
                           th:text="${#temporals.format(review.createdAt, 'MMM dd, yyyy')}">
-                    </span>
+                        </span>
                 </div>
                 <p class="review-comment"
                    th:text="${review.comment}">Comment</p>
@@ -89,77 +194,11 @@
         </div>
 
     </div>
-</div><body>
-
-<nav th:replace="~{fragments/layout :: navbar}"></nav>
-
-<div class="container">
-    <div class="product-detail">
-        <div class="product-detail-gallery product-detail-gallery--light">
-            <img th:src="${product.imageUrl}"
-                 th:alt="${product.name}"
-                 class="product-img-crisp"
-                 onerror="this.src='https://via.placeholder.com/400x500?text=Giftify'"/>
-        </div>
-
-        <div class="product-info">
-            <p class="brand-line" th:text="${product.brand}">Brand</p>
-            <h1 th:text="${product.name}">Product Name</h1>
-            <p class="price" th:text="'$' + ${product.price}">Price</p>
-
-            <hr/>
-
-            <div class="detail-row" th:if="${product.gender != null}">
-                <span class="label">Category</span>
-                <span th:text="${product.gender}"></span>
-            </div>
-            <div class="detail-row" th:if="${product.mood != null}">
-                <span class="label">Mood</span>
-                <span th:text="${product.mood}"></span>
-            </div>
-            <div class="detail-row" th:if="${product.season != null}">
-                <span class="label">Season</span>
-                <span th:text="${product.season}"></span>
-            </div>
-            <div class="detail-row" th:if="${product.longevity != null}">
-                <span class="label">Longevity</span>
-                <span th:text="${product.longevity}"></span>
-            </div>
-            <div class="detail-row" th:if="${product.notes != null}">
-                <span class="label">Notes</span>
-                <span th:text="${product.notes}"></span>
-            </div>
-            <div class="detail-row" th:if="${product.bestFor != null}">
-                <span class="label">Best For</span>
-                <span th:text="${product.bestFor}"></span>
-            </div>
-            <div class="detail-row" th:if="${product.vibe != null}">
-                <span class="label">Vibe</span>
-                <span th:text="${product.vibe}"></span>
-            </div>
-            <div class="detail-row" th:if="${product.stockQuantity != null}">
-                <span class="label">In Stock</span>
-                <span th:text="${product.stockQuantity}"></span>
-            </div>
-
-            <hr/>
-
-            <p class="product-description" th:text="${product.description}">Description</p>
-
-            <div class="detail-actions">
-                <a th:href="@{/cart/add/{id}(id=${product.id})}"
-                   class="btn-primary"
-                   sec:authorize="isAuthenticated()">Add to Cart</a>
-                <a th:href="@{/auth/login}"
-                   class="btn-primary"
-                   sec:authorize="!isAuthenticated()">Sign In to Purchase</a>
-                <a th:href="@{/products}" class="btn-secondary back-btn">Back to Shop</a>
-            </div>
-        </div>
-    </div>
 </div>
 
-<footer th:replace="~{fragments/layout :: footer}"></footer>
-<script th:src="@{/js/main.js}"></script>
+<footer>
+    <p>© 2024 Giftify. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
