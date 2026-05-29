@@ -18,6 +18,7 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -38,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/products/delete/**").hasRole("ADMIN")
                         .requestMatchers("/products/edit/**").hasRole("ADMIN")
                         .requestMatchers("/cart/**").authenticated()
+                        .requestMatchers("/reviews/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

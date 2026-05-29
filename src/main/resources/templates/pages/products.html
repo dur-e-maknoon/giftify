@@ -55,7 +55,7 @@
             <div class="card-buttons">
                 <a th:href="@{/products/{id}(id=${product.id})}">View</a>
                 <a th:href="@{/cart/add/{id}(id=${product.id})}"
-                   class="cart-btn">🛒 Add</a>
+                   class="cart-btn"> Add</a>
                 <a th:href="@{/products/edit/{id}(id=${product.id})}"
                    sec:authorize="hasRole('ADMIN')"
                    class="edit-btn">Edit</a>

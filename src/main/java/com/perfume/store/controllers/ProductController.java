@@ -1,9 +1,13 @@
 package com.perfume.store.controllers;
 
 import com.perfume.store.models.Product;
+import com.perfume.store.models.User;
+import com.perfume.store.repositories.UserRepository;
 import com.perfume.store.services.ProductService;
+import com.perfume.store.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +22,35 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private ReviewService reviewService;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Value("${upload.dir}")
     private String uploadDir;
 
     @GetMapping
     public String getAllProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("title", "All Products");
+        model.addAttribute("title", "All Perfumes");
         return "pages/products";
     }
 
     @GetMapping("/{id}")
-    public String getProductById(@PathVariable Long id, Model model) {
+    public String getProductById(@PathVariable Long id, Model model,
+                                 Authentication auth) {
         model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("reviews", reviewService.getReviewsForProduct(id));
+        model.addAttribute("avgRating", reviewService.getAverageRating(id));
+        if (auth != null) {
+            User user = userRepository.findByEmail(auth.getName());
+            model.addAttribute("hasReviewed",
+                    reviewService.hasUserReviewed(id, user.getId()));
+        } else {
+            model.addAttribute("hasReviewed", false);
+        }
         return "pages/product-detail";
     }
 
@@ -102,10 +122,7 @@ public class ProductController {
     @GetMapping("/category/{gender}")
     public String getByGender(@PathVariable String gender, Model model) {
         model.addAttribute("products", productService.getProductsByGender(gender));
-        String label = gender.charAt(0) + gender.substring(1).toLowerCase();
-        model.addAttribute("title", "WOMEN".equalsIgnoreCase(gender)
-                ? "Women's Perfumes"
-                : label + " Collection");
+        model.addAttribute("title", gender.charAt(0) + gender.substring(1).toLowerCase() + " Perfumes");
         return "pages/products";
     }
 
@@ -119,14 +136,10 @@ public class ProductController {
     @GetMapping("/type/{mainCategory}")
     public String getByMainCategory(@PathVariable String mainCategory, Model model) {
         model.addAttribute("products", productService.getProductsByMainCategory(mainCategory));
-        String title = switch (mainCategory.toUpperCase()) {
-            case "GIFTSET" -> "Luxury Gift Sets";
-            case "PERFUME" -> "Perfumes";
-            default -> mainCategory.charAt(0) + mainCategory.substring(1).toLowerCase() + " Collection";
-        };
-        model.addAttribute("title", title);
+        model.addAttribute("title", mainCategory.charAt(0) + mainCategory.substring(1).toLowerCase() + " Collection");
         return "pages/products";
     }
+
     @GetMapping("/search")
     public String searchProducts(@RequestParam String keyword, Model model) {
         model.addAttribute("products", productService.searchProducts(keyword));
