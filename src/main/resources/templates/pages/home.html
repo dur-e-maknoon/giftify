@@ -60,55 +60,67 @@
 </div>
 
 <!-- CATEGORIES SECTION -->
-<div class="container">
-    <h2 class="section-title">Shop By Category</h2>
-    <div class="category-grid">
-        <a th:href="@{/products/category/WOMEN}" class="category-card">
-            <div class="category-icon"></div>
+<div class="category-grid">
+    <a th:href="@{/products/category/WOMEN}" class="category-card"
+       style="background-image: url('/images/women-category.jpg');">
+        <div class="category-overlay">
             <h3>Women</h3>
             <p>Floral, Sweet & Elegant</p>
-        </a>
-        <a th:href="@{/products/category/MEN}" class="category-card">
-            <div class="category-icon"></div>
+        </div>
+    </a>
+    <a th:href="@{/products/category/MEN}" class="category-card"
+       style="background-image: url('/images/men-category.jpg');">
+        <div class="category-overlay">
             <h3>Men</h3>
             <p>Bold, Fresh & Masculine</p>
-        </a>
-        <a th:href="@{/products/type/GIFTSET}" class="category-card">
-            <div class="category-icon"></div>
+        </div>
+    </a>
+    <a th:href="@{/products/type/GIFTSET}" class="category-card"
+       style="background-image: url('/images/giftset-category.jpg');">
+        <div class="category-overlay">
             <h3>Gift Sets</h3>
             <p>Perfect for Every Occasion</p>
-        </a>
-        <a th:href="@{/products/type/ACCESSORY}" class="category-card">
-            <div class="category-icon"></div>
+        </div>
+    </a>
+    <a th:href="@{/products/type/ACCESSORY}" class="category-card"
+       style="background-image: url('/images/accessory-category.jpg');">
+        <div class="category-overlay">
             <h3>Accessories</h3>
             <p>Complete Your Collection</p>
-        </a>
-    </div>
+        </div>
+    </a>
 </div>
 
 <!-- MOOD SECTION -->
-<div class="mood-section">
-    <div class="container">
-        <h2 class="section-title">Shop By Mood</h2>
-        <div class="mood-grid">
-            <a th:href="@{/products/mood/DECENT}" class="mood-card">
-                <h3>Decent</h3>
-                <p>Clean & Professional</p>
-            </a>
-            <a th:href="@{/products/mood/LOVE}" class="mood-card">
-                <h3>Love</h3>
-                <p>Romantic & Warm</p>
-            </a>
-            <a th:href="@{/products/mood/OBSESSION}" class="mood-card">
-                <h3>Obsession</h3>
-                <p>Intense & Captivating</p>
-            </a>
-            <a th:href="@{/products/mood/BEAUTY}" class="mood-card">
-                <h3>Beauty</h3>
-                <p>Elegant & Refined</p>
-            </a>
+<div class="mood-grid">
+    <a th:href="@{/products/mood/DECENT}" class="mood-card"
+       style="background-image: url('/images/decent-mood.jpg');">
+        <div class="category-overlay">
+            <h3>Decent</h3>
+            <p>Clean & Professional</p>
         </div>
-    </div>
+    </a>
+    <a th:href="@{/products/mood/LOVE}" class="mood-card"
+       style="background-image: url('/images/love-mood.jpg');">
+        <div class="category-overlay">
+            <h3>Love</h3>
+            <p>Romantic & Warm</p>
+        </div>
+    </a>
+    <a th:href="@{/products/mood/OBSESSION}" class="mood-card"
+       style="background-image: url('/images/obsession-mood.jpg');">
+        <div class="category-overlay">
+            <h3>Obsession</h3>
+            <p>Intense & Captivating</p>
+        </div>
+    </a>
+    <a th:href="@{/products/mood/BEAUTY}" class="mood-card"
+       style="background-image: url('/images/beauty-mood.jpg');">
+        <div class="category-overlay">
+            <h3>Beauty</h3>
+            <p>Elegant & Refined</p>
+        </div>
+    </a>
 </div>
 
 <!-- FEATURED PRODUCTS -->

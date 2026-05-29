@@ -1098,3 +1098,63 @@ h1 {
     line-height: 1.7;
     margin: 0;
 }
+.category-card {
+    background-size: cover !important;
+    background-position: center !important;
+    border: 1px solid #c9a84c33;
+    border-radius: 12px;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card:hover {
+    border-color: #c9a84c;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(201, 168, 76, 0.2);
+}
+
+.category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    padding: 20px;
+    text-align: center;
+}
+
+.category-overlay h3 {
+    font-family: 'Playfair Display', serif;
+    color: #c9a84c;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.category-overlay p {
+    color: #f0e6d3;
+    font-size: 12px;
+}
+
+.mood-card {
+    background-size: cover !important;
+    background-position: center !important;
+    border: 1px solid #c9a84c44;
+    border-radius: 12px;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+}
+
+.mood-card:hover {
+    border-color: #c9a84c;
+    transform: translateY(-5px);
+}
